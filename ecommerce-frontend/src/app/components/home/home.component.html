@@ -1,0 +1,30 @@
+<!-- src/app/components/home/home.component.html -->
+<div class="hero bg-gradient-to-r from-blue-500 to-purple-600 text-white p-16 rounded-lg shadow-lg mb-8 text-center">
+  <h1 class="text-5xl font-extrabold mb-4 animate-fadeIn">Welcome to My E-Shop!</h1>
+  <p class="text-xl mb-6 opacity-0 animate-slideIn delay-300">Discover amazing products at unbeatable prices.</p>
+  <a routerLink="/products"
+    class="bg-white text-blue-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-full text-lg shadow-xl transition duration-300 ease-in-out transform hover:scale-105 opacity-0 animate-slideIn delay-600">
+    Shop Now!
+  </a>
+</div>
+
+<section class="featured-products py-8">
+  <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Featured Products</h2>
+  <div *ngIf="isLoading" class="text-center text-gray-500">Loading featured products...</div>
+  <div *ngIf="!isLoading && featuredProducts.length === 0" class="text-center text-gray-600">No featured products
+    available.</div>
+  <div *ngIf="!isLoading && featuredProducts.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let product of featuredProducts"
+      class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+      <img [src]="product.imageUrl" alt="{{ product.name }}" class="w-full h-48 object-cover">
+      <div class="p-4">
+        <h3 class="text-xl font-semibold text-gray-900 truncate">{{ product.name }}</h3>
+        <p class="text-gray-600 mt-2 line-clamp-2">{{ product.description }}</p>
+        <div class="flex justify-between items-center mt-4">
+          <span class="text-2xl font-bold text-blue-600">${{ product.price | number:'1.2-2' }}</span>
+          <a [routerLink]="['/products', product.id]" class="btn-primary">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
